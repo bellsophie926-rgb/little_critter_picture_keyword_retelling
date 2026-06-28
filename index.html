@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Little Critter's Secret Treasure Hunt｜看图关键词复述</title>
+<style>
+:root {
+  --bg: #f7f3ea;
+  --card: #fffdf8;
+  --ink: #263238;
+  --muted: #62727b;
+  --accent: #315c47;
+  --accent-2: #d8852b;
+  --soft: #e9ddc8;
+  --line: #d8c7aa;
+  --good: #e8f4ec;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", Arial, sans-serif;
+  background: radial-gradient(circle at top left, #fff8e6 0, var(--bg) 34%, #eef4ed 100%);
+  color: var(--ink);
+}
+header {
+  padding: 28px 18px 20px;
+  text-align: center;
+  background: linear-gradient(135deg, #315c47, #598166);
+  color: #fff;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  box-shadow: 0 4px 18px rgba(0,0,0,.16);
+}
+header h1 { margin: 0 0 8px; font-size: clamp(24px, 4vw, 42px); letter-spacing: .2px; }
+header p { margin: 0 auto; max-width: 900px; line-height: 1.6; opacity: .95; }
+.toolbar {
+  margin-top: 16px;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+button {
+  border: none;
+  border-radius: 999px;
+  padding: 10px 16px;
+  font-size: 15px;
+  cursor: pointer;
+  background: #fff;
+  color: var(--accent);
+  font-weight: 700;
+  box-shadow: 0 2px 8px rgba(0,0,0,.12);
+}
+button.secondary { background: #f3ead9; color: #5c4b2f; }
+button:hover { transform: translateY(-1px); }
+.container { max-width: 1180px; margin: 0 auto; padding: 24px 16px 60px; }
+.instructions {
+  background: rgba(255,253,248,.86);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 18px;
+  margin: 0 0 22px;
+  box-shadow: 0 5px 18px rgba(74,56,31,.08);
+}
+.instructions h2 { margin: 0 0 10px; color: var(--accent); }
+.instructions ol { margin: 8px 0 0 20px; line-height: 1.75; }
+.nav {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 18px 0;
+  justify-content: center;
+}
+.nav a {
+  text-decoration: none;
+  color: var(--accent);
+  background: #fffdf8;
+  border: 1px solid var(--line);
+  padding: 8px 12px;
+  border-radius: 999px;
+  font-weight: 700;
+}
+.story-grid { display: grid; grid-template-columns: 1fr; gap: 22px; }
+.page-card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 10px 28px rgba(54,44,30,.10);
+}
+.page-head {
+  padding: 16px 18px;
+  background: #f3ead9;
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.page-head h2 { margin: 0; font-size: 22px; color: var(--accent); }
+.badge { background: var(--accent); color: white; border-radius: 999px; padding: 6px 12px; font-weight: 800; }
+.page-body { display: grid; grid-template-columns: minmax(260px, 48%) 1fr; gap: 18px; padding: 18px; align-items: start; }
+.image-wrap {
+  background: #f1eadf;
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+}
+.image-wrap img { width: 100%; display: block; aspect-ratio: 4 / 3; object-fit: cover; }
+.panel { background: #fffaf0; border: 1px solid var(--soft); border-radius: 18px; padding: 16px; }
+.panel h3 { margin: 0 0 10px; color: #704b15; font-size: 18px; }
+.keywords { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
+.kw {
+  background: var(--good);
+  color: #1e4a35;
+  border: 1px solid #bfd8c8;
+  border-radius: 999px;
+  padding: 8px 10px;
+  font-weight: 800;
+}
+.kw small { font-weight: 500; color: #5d7468; margin-left: 4px; }
+.cn-hidden small { display: none; }
+.starters { display: grid; gap: 8px; margin-top: 10px; }
+.starter { background: #ffffff; border-left: 4px solid var(--accent-2); padding: 9px 12px; border-radius: 10px; font-weight: 650; }
+.prompt-box { margin-top: 12px; padding: 12px; border-radius: 12px; background: #f8f1e6; color: #5a4b35; line-height: 1.65; }
+details { margin-top: 12px; }
+summary { cursor: pointer; color: var(--accent); font-weight: 800; }
+.reference { margin-top: 10px; padding: 12px; border-radius: 12px; background: white; border: 1px dashed var(--line); line-height: 1.75; }
+.audio-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
+.checklist {
+  margin-top: 28px;
+  padding: 20px;
+  background: #fffdf8;
+  border: 1px solid var(--line);
+  border-radius: 22px;
+}
+.checklist h2 { margin-top: 0; color: var(--accent); }
+.checklist table { width: 100%; border-collapse: collapse; background: white; overflow: hidden; border-radius: 14px; }
+.checklist th, .checklist td { border: 1px solid var(--line); padding: 10px; text-align: left; }
+.checklist th { background: #f3ead9; }
+.footer-note { text-align: center; color: var(--muted); margin-top: 22px; font-size: 13px; }
+@media (max-width: 820px) {
+  header { position: relative; }
+  .page-body { grid-template-columns: 1fr; }
+}
+@media print {
+  header, .toolbar, .nav, .audio-row, details, .footer-note { display: none !important; }
+  body { background: white; }
+  .container { padding: 0; }
+  .page-card { break-inside: avoid; box-shadow: none; margin-bottom: 12px; }
+  .page-body { grid-template-columns: 42% 1fr; }
+}
+</style>
+</head>
+<body>
+<header>
+  <h1>Little Critter's Secret Treasure Hunt</h1>
+  <p>看图片 + 关键词复述练习｜学生先不用看原文，用完整句把故事讲出来。</p>
+  <div class="toolbar">
+    <button onclick="toggleChinese()" id="cnBtn">隐藏中文提示</button>
+    <button class="secondary" onclick="expandAnswers()">展开/收起参考答案</button>
+    <button class="secondary" onclick="window.print()">打印练习页</button>
+  </div>
+</header>
+<div class="container" id="app">
+  <section class="instructions">
+    <h2>使用方法</h2>
+    <ol>
+      <li><strong>第一遍：</strong>学生只看图片，说出人物、地点、动作。</li>
+      <li><strong>第二遍：</strong>看关键词，用 <em>I / We</em> 和完整句复述每一页。</li>
+      <li><strong>第三遍：</strong>隐藏中文提示，尽量不用看句型支架，把 8 页连成完整故事。</li>
+      <li><strong>老师检查：</strong>最后点开“参考复述”，看学生是否漏掉核心情节。</li>
+    </ol>
+  </section>
+  <nav class="nav">
+    <a href="#p1">Page 1</a><a href="#p2">Page 2</a><a href="#p3">Page 3</a><a href="#p4">Page 4</a><a href="#p5">Page 5</a><a href="#p6">Page 6</a><a href="#p7">Page 7</a><a href="#p8">Page 8</a>
+  </nav>
+  <section class="story-grid">
+
+    <article class="page-card" id="p1">
+      <div class="page-head">
+        <h2>A Secret Map</h2>
+        <span class="badge">Page 1 / 8</span>
+      </div>
+      <div class="page-body">
+        <div class="image-wrap">
+          <img src="https://musk-online.fbcontent.cn/pub-musk-ai-studio/workflow/file/picture/wig4G9htReZ4FjPiQq5btD.jpg" alt="Story picture page 1" loading="lazy">
+        </div>
+        <div class="panel">
+          <h3>Retelling Keywords</h3>
+          <div class="keywords"><span class="kw">find a map<small>找到一张地图</small></span><span class="kw">have an idea<small>有一个主意</small></span><span class="kw">find treasure<small>寻找宝藏</small></span><span class="kw">old store<small>旧储藏室</small></span><span class="kw">backyard<small>后院</small></span><span class="kw">secret place<small>秘密地点</small></span></div>
+          <h3>Sentence Starters</h3>
+          <div class="starters"><div class="starter">One day, I find...</div><div class="starter">I have an idea: ...</div><div class="starter">The old store is...</div></div>
+          <div class="prompt-box">
+            <strong>复述要求：</strong>至少说 3 句。尽量使用关键词，但不要逐字背原文。可以加入连接词：<strong>First / Then / Next / Finally</strong>。
+          </div>
+          <div class="audio-row">
+            <button onclick="playAudio('https://musk-online.fbcontent.cn/pub-musk-ai-studio/workflow/file/audio/beBZQpRXZtfTrHNDcsDAxQ.mp3')">听原文音频</button>
+          </div>
+          <details class="answer-detail">
+            <summary>老师用：参考复述</summary>
+            <div class="reference">One day, I find a map. I have an idea. It is time to find a treasure. I look at the old store in my backyard. It is a secret place.</div>
+          </details>
+        </div>
+      </div>
+    </article>
+
+    <article class="page-card" id="p2">
+      <div class="page-head">
+        <h2>Getting Ready</h2>
+        <span class="badge">Page 2 / 8</span>
+      </div>
+      <div class="page-body">
+        <div class="image-wrap">
+          <img src="https://musk-online.fbcontent.cn/pub-musk-ai-studio/workflow/file/picture/WFPjTZkBrRnet5krSZjbj9.jpg" alt="Story picture page 2" loading="lazy">
+        </div>
+        <div class="panel">
+          <h3>Retelling Keywords</h3>
+          <div class="keywords"><span class="kw">get ready<small>准备好</small></span><span class="kw">need help<small>需要帮助</small></span><span class="kw">many tools<small>很多工具</small></span><span class="kw">our team<small>我们的队伍</small></span><span class="kw">go to the store<small>去储藏室</small></span><span class="kw">what we need<small>需要的东西</small></span></div>
+          <h3>Sentence Starters</h3>
+          <div class="starters"><div class="starter">I must...</div><div class="starter">Mom says...</div><div class="starter">Dad says...</div><div class="starter">We go to...</div></div>
+          <div class="prompt-box">
+            <strong>复述要求：</strong>至少说 3 句。尽量使用关键词，但不要逐字背原文。可以加入连接词：<strong>First / Then / Next / Finally</strong>。
+          </div>
+          <div class="audio-row">
+            <button onclick="playAudio('https://musk-online.fbcontent.cn/pub-musk-ai-studio/workflow/file/audio/x4hrwM58reWU2JF6GWmjS6.mp3')">听原文音频</button>
+          </div>
+          <details class="answer-detail">
+            <summary>老师用：参考复述</summary>
+            <div class="reference">I must get ready. Mom says I will need a little help. Dad says we will find many tools for our team. We go to the store to get what we need.</div>
+          </details>
+        </div>
+      </div>
+    </article>
+
+    <article class="page-card" id="p3">
+      <div class="page-head">
+        <h2>The Path Near the Garden</h2>
+        <span class="badge">Page 3 / 8</span>
+      </div>
+      <div class="page-body">
+        <div class="image-wrap">
+          <img src="https://musk-online.fbcontent.cn/pub-musk-ai-studio/workflow/file/picture/neyYxvMxQ7Ea9PjZRAxke4.jpg" alt="Story picture page 3" loading="lazy">
+        </div>
+        <div class="panel">
+          <h3>Retelling Keywords</h3>
+          <div class="keywords"><span class="kw">tree<small>树</small></span><span class="kw">near the garden<small>在花园附近</small></span><span class="kw">find a path<small>找到小路</small></span><span class="kw">use a tool<small>使用工具</small></span><span class="kw">dig under the grass<small>在草下面挖</small></span><span class="kw">hard work<small>辛苦的工作</small></span><span class="kw">great team<small>很棒的团队</small></span></div>
+          <h3>Sentence Starters</h3>
+          <div class="starters"><div class="starter">We go to...</div><div class="starter">We find...</div><div class="starter">Dad uses...</div><div class="starter">It is hard, but...</div></div>
+          <div class="prompt-box">
+            <strong>复述要求：</strong>至少说 3 句。尽量使用关键词，但不要逐字背原文。可以加入连接词：<strong>First / Then / Next / Finally</strong>。
+          </div>
+          <div class="audio-row">
+            <button onclick="playAudio('https://musk-online.fbcontent.cn/pub-musk-ai-studio/workflow/file/audio/MyfPkco6WdjjqmEq4jatp5.mp3')">听原文音频</button>
+          </div>
+          <details class="answer-detail">
+            <summary>老师用：参考复述</summary>
+            <div class="reference">We go to the tree near the garden. We find a path. Dad uses a tool to dig under the grass. It is hard work, but our team is great.</div>
+          </details>
+        </div>
+      </div>
+    </article>
+
+    <article class="page-card" id="p4">
+      <div class="page-head">
+        <h2>Old Things and a Compost Heap</h2>
+        <span class="badge">Page 4 / 8</span>
+      </div>
+      <div class="page-body">
+        <div class="image-wrap">
+          <img src="https://musk-online.fbcontent.cn/pub-musk-ai-studio/workflow/file/picture/yDPsT3hMcbdCZ7byp96zo3.jpg" alt="Story picture page 4" loading="lazy">
+        </div>
+        <div class="panel">
+          <h3>Retelling Keywords</h3>
+          <div class="keywords"><span class="kw">learn about old things<small>学习旧物</small></span><span class="kw">compost heap<small>堆肥堆</small></span><span class="kw">old stuff<small>旧东西</small></span><span class="kw">protect the path<small>保护小路</small></span><span class="kw">wait for Dad<small>等爸爸</small></span><span class="kw">show us<small>指给我们看</small></span><span class="kw">where to dig<small>在哪里挖</small></span></div>
+          <h3>Sentence Starters</h3>
+          <div class="starters"><div class="starter">At school, I learn...</div><div class="starter">We find...</div><div class="starter">We must...</div><div class="starter">We wait for...</div></div>
+          <div class="prompt-box">
+            <strong>复述要求：</strong>至少说 3 句。尽量使用关键词，但不要逐字背原文。可以加入连接词：<strong>First / Then / Next / Finally</strong>。
+          </div>
+          <div class="audio-row">
+            <button onclick="playAudio('https://musk-online.fbcontent.cn/pub-musk-ai-studio/workflow/file/audio/jJNefy4FXzbHgDUpGR9LdH.mp3')">听原文音频</button>
+          </div>
+          <details class="answer-detail">
+            <summary>老师用：参考复述</summary>
+            <div class="reference">At school, I learn about old things. We find a compost heap. It is full of old stuff. We must protect the path. We wait for Dad to show us where to dig.</div>
+          </details>
+        </div>
+      </div>
+    </article>
+
+    <article class="page-card" id="p5">
+      <div class="page-head">
+        <h2>The Old Box</h2>
+        <span class="badge">Page 5 / 8</span>
+      </div>
+      <div class="page-body">
+        <div class="image-wrap">
+          <img src="https://musk-online.fbcontent.cn/pub-musk-ai-studio/workflow/file/picture/wvkGMVPUTRngsqrEtaUPuW.jpg" alt="Story picture page 5" loading="lazy">
+        </div>
+        <div class="panel">
+          <h3>Retelling Keywords</h3>
+          <div class="keywords"><span class="kw">finally<small>终于</small></span><span class="kw">see something<small>看到某个东西</small></span><span class="kw">old box<small>旧盒子</small></span><span class="kw">take pictures<small>拍照</small></span><span class="kw">secret treasure<small>秘密宝藏</small></span><span class="kw">take turns<small>轮流</small></span><span class="kw">clean the box<small>清理盒子</small></span></div>
+          <h3>Sentence Starters</h3>
+          <div class="starters"><div class="starter">Finally, we see...</div><div class="starter">It is...</div><div class="starter">I take...</div><div class="starter">We take turns to...</div></div>
+          <div class="prompt-box">
+            <strong>复述要求：</strong>至少说 3 句。尽量使用关键词，但不要逐字背原文。可以加入连接词：<strong>First / Then / Next / Finally</strong>。
+          </div>
+          <div class="audio-row">
+            <button onclick="playAudio('https://musk-online.fbcontent.cn/pub-musk-ai-studio/workflow/file/audio/tUPynABJUnmvWTF576jg6b.mp3')">听原文音频</button>
+          </div>
+          <details class="answer-detail">
+            <summary>老师用：参考复述</summary>
+            <div class="reference">Finally, we see something. It is an old box. I take pictures of my secret treasure. It is great. We take turns to clean the box.</div>
+          </details>
+        </div>
+      </div>
+    </article>
+
+    <article class="page-card" id="p6">
+      <div class="page-head">
+        <h2>Blue Protects the Treasure</h2>
+        <span class="badge">Page 6 / 8</span>
+      </div>
+      <div class="page-body">
+        <div class="image-wrap">
+          <img src="https://musk-online.fbcontent.cn/pub-musk-ai-studio/workflow/file/picture/EaNcGNAuHgwFWCaWJCvmPj.jpg" alt="Story picture page 6" loading="lazy">
+        </div>
+        <div class="panel">
+          <h3>Retelling Keywords</h3>
+          <div class="keywords"><span class="kw">at night<small>在晚上</small></span><span class="kw">a deer<small>一只鹿</small></span><span class="kw">come to see<small>来看</small></span><span class="kw">Blue will bark<small>Blue会叫</small></span><span class="kw">protect the treasure<small>保护宝藏</small></span><span class="kw">runs away<small>跑走</small></span><span class="kw">a good dog<small>一只好狗</small></span></div>
+          <h3>Sentence Starters</h3>
+          <div class="starters"><div class="starter">At night, ...</div><div class="starter">A deer comes to...</div><div class="starter">Blue will...</div><div class="starter">The deer...</div><div class="starter">Dad says...</div></div>
+          <div class="prompt-box">
+            <strong>复述要求：</strong>至少说 3 句。尽量使用关键词，但不要逐字背原文。可以加入连接词：<strong>First / Then / Next / Finally</strong>。
+          </div>
+          <div class="audio-row">
+            <button onclick="playAudio('https://musk-online.fbcontent.cn/pub-musk-ai-studio/workflow/file/audio/4jdpMdJsJ7m3eLnqkQKmg7.mp3')">听原文音频</button>
+          </div>
+          <details class="answer-detail">
+            <summary>老师用：参考复述</summary>
+            <div class="reference">At night, a deer comes to see our box. Blue will bark to protect the treasure. The deer runs away. Dad says Blue is a good dog and he will protect our find.</div>
+          </details>
+        </div>
+      </div>
+    </article>
+
+    <article class="page-card" id="p7">
+      <div class="page-head">
+        <h2>A Great Surprise</h2>
+        <span class="badge">Page 7 / 8</span>
+      </div>
+      <div class="page-body">
+        <div class="image-wrap">
+          <img src="https://musk-online.fbcontent.cn/pub-musk-ai-studio/workflow/file/picture/HQMVJ27zshMKwQpTFcs64L.jpg" alt="Story picture page 7" loading="lazy">
+        </div>
+        <div class="panel">
+          <h3>Retelling Keywords</h3>
+          <div class="keywords"><span class="kw">open the box<small>打开盒子</small></span><span class="kw">great surprise<small>很棒的惊喜</small></span><span class="kw">many old toys<small>很多旧玩具</small></span><span class="kw">finding this<small>找到这个</small></span><span class="kw">fun<small>有趣</small></span><span class="kw">better than a game<small>比游戏更好</small></span></div>
+          <h3>Sentence Starters</h3>
+          <div class="starters"><div class="starter">Finally, we open...</div><div class="starter">I have...</div><div class="starter">It has...</div><div class="starter">Mom says...</div></div>
+          <div class="prompt-box">
+            <strong>复述要求：</strong>至少说 3 句。尽量使用关键词，但不要逐字背原文。可以加入连接词：<strong>First / Then / Next / Finally</strong>。
+          </div>
+          <div class="audio-row">
+            <button onclick="playAudio('https://musk-online.fbcontent.cn/pub-musk-ai-studio/workflow/file/audio/bnw3SA2ikXHFGbt4czxAki.mp3')">听原文音频</button>
+          </div>
+          <details class="answer-detail">
+            <summary>老师用：参考复述</summary>
+            <div class="reference">Finally, we open the box. I have a great surprise. It has many old toys. Mom says finding this was fun. It is better than a game.</div>
+          </details>
+        </div>
+      </div>
+    </article>
+
+    <article class="page-card" id="p8">
+      <div class="page-head">
+        <h2>A Great Day</h2>
+        <span class="badge">Page 8 / 8</span>
+      </div>
+      <div class="page-body">
+        <div class="image-wrap">
+          <img src="https://musk-online.fbcontent.cn/pub-musk-ai-studio/workflow/file/picture/hnZfiSomVfDJtNagHNBRiT.jpg" alt="Story picture page 8" loading="lazy">
+        </div>
+        <div class="panel">
+          <h3>Retelling Keywords</h3>
+          <div class="keywords"><span class="kw">great dinner<small>丰盛的晚餐</small></span><span class="kw">fun day<small>有趣的一天</small></span><span class="kw">finish our work<small>完成工作</small></span><span class="kw">now<small>现在</small></span><span class="kw">rest<small>休息</small></span><span class="kw">great day<small>很棒的一天</small></span></div>
+          <h3>Sentence Starters</h3>
+          <div class="starters"><div class="starter">We have...</div><div class="starter">I love...</div><div class="starter">We finish...</div><div class="starter">Now we can...</div><div class="starter">It was...</div></div>
+          <div class="prompt-box">
+            <strong>复述要求：</strong>至少说 3 句。尽量使用关键词，但不要逐字背原文。可以加入连接词：<strong>First / Then / Next / Finally</strong>。
+          </div>
+          <div class="audio-row">
+            <button onclick="playAudio('https://musk-online.fbcontent.cn/pub-musk-ai-studio/workflow/file/audio/hWcVXcXki3fu9T2Yb87fUD.mp3')">听原文音频</button>
+          </div>
+          <details class="answer-detail">
+            <summary>老师用：参考复述</summary>
+            <div class="reference">We have a great dinner. I love my fun day. We finish our work and now we can rest. It was a great day.</div>
+          </details>
+        </div>
+      </div>
+    </article>
+
+  </section>
+  <section class="checklist">
+    <h2>Retelling Checklist｜复述评分表</h2>
+    <table>
+      <thead><tr><th>检查点</th><th>学生表现</th></tr></thead>
+      <tbody>
+        <tr><td>能按故事顺序讲：map → tools → path → box → deer → old toys → dinner</td><td>□ 稳定　□ 需要提示　□ 容易乱序</td></tr>
+        <tr><td>能用关键词组成完整句，而不是只读单词</td><td>□ 稳定　□ 需要提示　□ 只能说词</td></tr>
+        <tr><td>能正确使用 I / We / Dad / Blue 等主语</td><td>□ 稳定　□ 需要提示　□ 主语混乱</td></tr>
+        <tr><td>能用 First / Then / Next / Finally 连接故事</td><td>□ 稳定　□ 需要提示　□ 基本没有连接</td></tr>
+        <tr><td>能讲出结尾感受：It was a great / fun day.</td><td>□ 稳定　□ 需要提示　□ 结尾缺失</td></tr>
+      </tbody>
+    </table>
+  </section>
+  <p class="footer-note">Teacher version created for picture-based retelling practice.</p>
+</div>
+<script>
+let chineseVisible = true;
+function toggleChinese(){
+  chineseVisible = !chineseVisible;
+  document.body.classList.toggle('cn-hidden', !chineseVisible);
+  document.getElementById('cnBtn').textContent = chineseVisible ? '隐藏中文提示' : '显示中文提示';
+}
+function expandAnswers(){
+  const details = document.querySelectorAll('.answer-detail');
+  const shouldOpen = Array.from(details).some(d => !d.open);
+  details.forEach(d => d.open = shouldOpen);
+}
+function playAudio(url){
+  const audio = new Audio(url);
+  audio.play().catch(() => alert('音频无法自动播放，请检查浏览器权限或网络连接。'));
+}
+</script>
+</body>
+</html>
